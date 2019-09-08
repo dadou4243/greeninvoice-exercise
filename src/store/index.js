@@ -11,23 +11,6 @@ export default new Vuex.Store({
     selectedNoteData: {},
     filteredNotes: []
   },
-  mutations: {
-    showModal(state) {
-      state.showModal = true;
-    },
-    closeModal(state) {
-      state.showModal = false;
-    },
-    getNotes(state, payload) {
-      state.notes = payload;
-    },
-    setSelectedNoteData(state, payload) {
-      state.selectedNoteData = payload;
-    },
-    setFilteredNotes(state, payload) {
-      state.filteredNotes = payload;
-    }
-  },
   actions: {
     showModal({ commit }) {
       commit('showModal');
@@ -56,23 +39,35 @@ export default new Vuex.Store({
         commit('setSelectedNoteData', result.data);
       });
     },
-    // Save the edited note to the API if changes have been made
-    saveNoteData({ dispatch, state }, noteData) {
-      // Get the value of the note before change
-      const initialNoteData = state.notes.find(note => {
-        return note.id === noteData.id;
-      });
+    // Login
+    login({ dispatch }, loginInfo) {
+      console.log('loginInfo:', loginInfo);
       // Check if the editable field of the note has been changed
-      if (noteData.body !== initialNoteData.body) {
-        // Patch the new note data
-        UserApi.saveNoteData(noteData).then(result => {
-          if (result.status === 200) {
-            dispatch('getNotes');
-          }
-        });
-      }
+      UserApi.login(loginInfo).then(result => {
+        if (result.status === 200) {
+          dispatch('login');
+        }
+      });
     }
   },
+  mutations: {
+    showModal(state) {
+      state.showModal = true;
+    },
+    closeModal(state) {
+      state.showModal = false;
+    },
+    getNotes(state, payload) {
+      state.notes = payload;
+    },
+    login(state, payload) {
+      state.selectedNoteData = payload;
+    },
+    setFilteredNotes(state, payload) {
+      state.filteredNotes = payload;
+    }
+  },
+
   getters: {
     notes: state => {
       return state.notes;

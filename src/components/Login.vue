@@ -4,11 +4,11 @@
 
     <div class="right-part">
       <div class="logo">
+        <img src="../assets/svg/green_leaf.svg" class="leaf-logo" alt="leaf logo" />
+
         <span class="bold">חשבונית</span>
 
         <span class="light">ירוקה</span>
-
-        <img src="../assets/svg/green_leaf.svg" class="leaf-logo" alt="leaf logo" />
       </div>
 
       <div class="form-container">
@@ -18,19 +18,19 @@
             <div>
               <label class="label-container">Email</label>
             </div>
-            <input type="text" placeholder="מייל" />
+            <input type="text" placeholder="מייל" v-model="email" />
           </div>
 
           <div class="field-container">
             <div class="label-container">
               <label>password</label>
             </div>
-            <input type="password" placeholder="סיסמה" />
+            <input type="password" placeholder="סיסמה" v-model="password" />
           </div>
         </form>
 
         <div class="buttons">
-          <button>כניסה</button>
+          <button @click="login">כניסה</button>
           <button class="google">כניסה עם גוגל</button>
         </div>
       </div>
@@ -40,9 +40,22 @@
 
 <script>
 export default {
-  name: "HelloWorld",
-  props: {
-    msg: String
+  name: "Login",
+  data() {
+    return {
+      email: "",
+      password: ""
+    };
+  },
+  methods: {
+    login() {
+      const loginInfo = {
+        email: this.email,
+        password: this.password
+      };
+      console.log("loginInfo:", loginInfo);
+      this.$store.dispatch("login", loginInfo);
+    }
   }
 };
 </script>
@@ -63,11 +76,10 @@ export default {
 
     .logo {
       color: #18c746;
-      font-size: 42px;
+      font-size: 24px;
       // text-align: right;
       display: flex;
-      flex-direction: row-reverse;
-      justify-content: flex-end;
+      flex-direction: row;
 
       .light {
         font-weight: 400;
@@ -79,18 +91,31 @@ export default {
       }
 
       .leaf-logo {
-        width: 25px;
+        width: 15px;
         margin-left: 5px;
       }
     }
 
     .form-container {
+      width: 350px;
+      margin-left: 30px;
+      flex: 1;
+      align-self: flex-end;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+
       h1 {
         color: #506aed;
+        margin-bottom: 10%;
+        letter-spacing: -0.05rem;
+        font-weight: 900;
+        font-size: 37px;
       }
 
       form {
         input {
+          width: 100%;
           border: 0;
           border-bottom: 1px solid black;
           background: 0;
@@ -102,9 +127,11 @@ export default {
 
       .buttons {
         margin: 2rem 0 0 0;
+        display: flex;
 
         button {
-          font-size: 1rem;
+          font-size: 0.8rem;
+          font-weight: 700;
           border-radius: 5rem;
           background: #506aed;
           border: 1px solid #506aed;
@@ -117,21 +144,20 @@ export default {
           text-decoration: none;
           white-space: nowrap;
           text-align: center;
-          -webkit-transition: width 0.25s ease-in-out;
-          -moz-transition: width 0.25s ease-in-out;
           transition: width 0.25s ease-in-out;
           outline: none;
-          -webkit-touch-callout: none;
-          -webkit-user-select: none;
-          -khtml-user-select: none;
-          -moz-user-select: none;
-          -ms-user-select: none;
-          user-select: none;
-          -webkit-tap-highlight-color: transparent;
+
+          &.login {
+            flex: 1;
+          }
 
           &.google {
             background: #ffffff;
             color: #506aed;
+            background: url(../assets/svg/Google_G.svg) #fff no-repeat 0.75rem
+              center;
+            background-size: 20px;
+            padding: 0 1.75rem 0 2.75rem;
           }
         }
       }

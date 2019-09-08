@@ -13,11 +13,10 @@ export default {
       return response;
     });
   },
-  saveNoteData(noteData) {
-    return axios
-      .patch(`notes/${noteData.id}`, { note: noteData.body })
-      .then(response => {
-        return response;
-      });
+  login({ email, password }) {
+    return axios.post('account/login', { email, password }).then(response => {
+      console.log('response:', response);
+      return response;
+    });
   }
 };
