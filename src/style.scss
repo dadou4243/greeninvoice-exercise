@@ -1,0 +1,42 @@
+@font-face {
+  font-family: 'almoni-neue-dl';
+  src: url('./assets/fonts/almoni-neue-aaa-400.woff');
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'almoni-neue-dl';
+  src: url('./assets/fonts/almoni-neue-aaa-700.woff');
+  font-weight: 700;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'almoni-neue-dl';
+  src: url('./assets/fonts/almoni-neue-aaa-900.woff');
+  font-weight: 900;
+  font-style: italic;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  direction: rtl;
+}
+
+body {
+  font-family: almoni-neue-dl, arial, sans-serif;
+}
+
+button:focus,
+a.button:focus {
+  outline: none;
+}
+
+input[type='text'],
+input[type='password'] {
+  outline: none;
+}
