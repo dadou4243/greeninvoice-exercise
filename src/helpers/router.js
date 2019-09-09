@@ -4,34 +4,47 @@ import Router from 'vue-router';
 import LoginPage from '../components/LoginPage.vue';
 import WelcomePage from '../components/WelcomePage.vue';
 
+import store from '../store'; // your vuex store
+
 Vue.use(Router);
+
+const ifNotAuthenticated = (to, from, next) => {
+  console.log('store.state.loggedIn:', store.state.loggedIn);
+  if (!store.state.loggedIn) {
+    next();
+    return;
+  }
+  next('/');
+};
+
+const ifAuthenticated = (to, from, next) => {
+  console.log('store.state.loggedIn:', store.state.loggedIn);
+
+  if (store.state.loggedIn) {
+    next();
+    return;
+  }
+  next('/login');
+};
 
 const routes = [
   // { path: '/', component: App },
   {
     path: '/',
-    redirect: 'login'
+    redirect: 'welcome'
   },
-  { path: '/login', component: LoginPage },
-  { path: '/welcome', component: WelcomePage },
+  {
+    path: '/login',
+    // name: 'Login',
+    component: LoginPage,
+    beforeEnter: ifNotAuthenticated
+  },
+  { path: '/welcome', component: WelcomePage, beforeEnter: ifAuthenticated },
   // otherwise redirect to home
   { path: '*', redirect: '/' }
 ];
 
-export default new Router({
+export const router = new Router({
   mode: 'history',
   routes
 });
-
-// router.beforeEach((to, from, next) => {
-//   // redirect to login page if not logged in and trying to access a restricted page
-//   const publicPages = ['/login'];
-//   const authRequired = !publicPages.includes(to.path);
-//   const loggedIn = localStorage.getItem('user');
-
-//   if (authRequired && !loggedIn) {
-//     return next('/login');
-//   }
-
-//   next();
-// });

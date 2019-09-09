@@ -56,7 +56,7 @@ export default {
       console.log("loginInfo:", loginInfo);
       this.$store.dispatch("login", loginInfo).then(res => {
         console.log("res:", res);
-        // this.$router.push("/welcome");
+        this.$router.push("/welcome");
       });
     }
   }

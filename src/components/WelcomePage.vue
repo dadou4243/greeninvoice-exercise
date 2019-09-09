@@ -1,6 +1,9 @@
 <template>
   <div class="login-container">
-      <h1>Welcome</h1>
+    <h1>Welcome</h1>
+    <div>{{user.firstName}}</div>
+    <div>{{user.lastName}}</div>
+    <button @click="logout">logout</button>
   </div>
 </template>
 
@@ -13,8 +16,27 @@ export default {
       password: ""
     };
   },
+
   methods: {
-    login() {}
+    logout() {
+      console.log("logout");
+      // const loginInfo = {
+      //   email: this.email,
+      //   password: this.password
+      // };
+      // console.log("loginInfo:", loginInfo);
+      this.$store.dispatch("logout");
+      this.$router.push("/login");
+    }
+  },
+  computed: {
+    user() {
+      return this.$store.state.user;
+    }
+  },
+  mounted() {
+    this.$store.dispatch("getUserInfo");
+    this.$store.dispatch("getBusinesses");
   }
 };
 </script>

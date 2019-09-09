@@ -1,25 +1,32 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import UserApi from '../services/api/User';
+import UserApi from '../services/api/UserService';
+
+import AuthenticationService from '../services/AuthenticationService';
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    notes: [],
-    showModal: false,
-    selectedNoteData: {},
-    filteredNotes: []
+    loggedIn: false,
+    user: {}
   },
   actions: {
     // Login
-    login({ dispatch }, loginInfo) {
+    login({ commit }, loginInfo) {
       return new Promise((resolve, reject) => {
         console.log('loginInfo:', loginInfo);
         // Check if the editable field of the note has been changed
         UserApi.login(loginInfo)
           .then(response => {
-            console.log('response:', response);
+            // console.log('response:', response);
+            // console.log('response:', response.headers);
+            AuthenticationService.setJwtToken(
+              response.headers['x-authorization-bearer']
+            );
+
+            console.log('response.data:', response.data);
+            commit('login', response.data);
 
             resolve(response);
           })
@@ -30,11 +37,32 @@ export default new Vuex.Store({
             reject(err);
           });
       });
+    },
+    logout({ commit }) {
+      // return new Promise((resolve, reject) => {resolve(AuthenticationService.logout()});
+      AuthenticationService.logout();
+      commit('logout');
+    },
+    getUserInfo() {},
+    getBusinesses() {
+      console.log('getBusinesses');
+      UserApi.getBusinesses().then(response => {
+        console.log('response:', response);
+      });
     }
   },
   mutations: {
-    login(state, payload) {
-      state.selectedNoteData = payload;
+    login(state, user) {
+      console.log('user:', user);
+      state.loggedIn = true;
+      state.user = user;
+    },
+    logout(state) {
+      state.loggedIn = false;
+      state.user = {};
+    },
+    setBusinesses(state, businesses) {
+      state.businesses = businesses;
     }
   },
 
