@@ -12,79 +12,31 @@ export default new Vuex.Store({
     filteredNotes: []
   },
   actions: {
-    showModal({ commit }) {
-      commit('showModal');
-    },
-    closeModal({ commit }) {
-      commit('closeModal');
-    },
-    // Get the list of notes from the API
-    getNotes({ commit }) {
-      UserApi.getNotes().then(result => {
-        commit('getNotes', result.data);
-        // Initialize the filtered notes value
-        commit('setFilteredNotes', result.data);
-      });
-    },
-    // Filter the notes based on the search text input value
-    setFilteredNotes({ commit, state }, author) {
-      const filteredNotes = state.notes.filter(note => {
-        return note.author.toLowerCase().startsWith(author.toLowerCase());
-      });
-      commit('setFilteredNotes', filteredNotes);
-    },
-    // Get the selected note data from the API
-    getSelectedNoteData({ commit }, noteID) {
-      UserApi.getNoteData(noteID).then(result => {
-        commit('setSelectedNoteData', result.data);
-      });
-    },
     // Login
     login({ dispatch }, loginInfo) {
-      console.log('loginInfo:', loginInfo);
-      // Check if the editable field of the note has been changed
-      UserApi.login(loginInfo).then(result => {
-        if (result.status === 200) {
-          dispatch('login');
-        }
+      return new Promise((resolve, reject) => {
+        console.log('loginInfo:', loginInfo);
+        // Check if the editable field of the note has been changed
+        UserApi.login(loginInfo)
+          .then(response => {
+            console.log('response:', response);
+
+            resolve(response);
+          })
+          .catch(err => {
+            console.log('err:', err.response);
+            // commit('auth_error');
+            // localStorage.removeItem('token');
+            reject(err);
+          });
       });
     }
   },
   mutations: {
-    showModal(state) {
-      state.showModal = true;
-    },
-    closeModal(state) {
-      state.showModal = false;
-    },
-    getNotes(state, payload) {
-      state.notes = payload;
-    },
     login(state, payload) {
       state.selectedNoteData = payload;
-    },
-    setFilteredNotes(state, payload) {
-      state.filteredNotes = payload;
     }
   },
 
-  getters: {
-    notes: state => {
-      return state.notes;
-    },
-    showModal: state => {
-      return state.showModal;
-    },
-    selectedNoteData: state => {
-      return state.selectedNoteData;
-    },
-    filteredNotes: state => {
-      return state.filteredNotes;
-    },
-    authors: state => {
-      return state.notes.map(note => {
-        return note.author;
-      });
-    }
-  }
+  getters: {}
 });

@@ -18,7 +18,7 @@
             <div>
               <label class="label-container">Email</label>
             </div>
-            <input type="text" placeholder="מייל" v-model="email" />
+            <input type="text" placeholder="מייל" v-model.lazy="email" />
           </div>
 
           <div class="field-container">
@@ -30,7 +30,7 @@
         </form>
 
         <div class="buttons">
-          <button @click="login">כניסה</button>
+          <button @click="login" class="login">כניסה</button>
           <button class="google">כניסה עם גוגל</button>
         </div>
       </div>
@@ -54,7 +54,10 @@ export default {
         password: this.password
       };
       console.log("loginInfo:", loginInfo);
-      this.$store.dispatch("login", loginInfo);
+      this.$store.dispatch("login", loginInfo).then(res => {
+        console.log("res:", res);
+        // this.$router.push("/welcome");
+      });
     }
   }
 };
@@ -72,14 +75,13 @@ export default {
     flex: 1;
     display: flex;
     flex-direction: column;
-    padding: 1rem 4rem;
 
     .logo {
       color: #18c746;
-      font-size: 24px;
-      // text-align: right;
+      font-size: 36px;
       display: flex;
       flex-direction: row;
+      padding: 2rem 4rem;
 
       .light {
         font-weight: 400;
@@ -91,14 +93,14 @@ export default {
       }
 
       .leaf-logo {
-        width: 15px;
-        margin-left: 5px;
+        width: 23px;
+        margin-left: 7px;
       }
     }
 
     .form-container {
-      width: 350px;
-      margin-left: 30px;
+      width: 365px;
+      margin: 0 20%;
       flex: 1;
       align-self: flex-end;
       display: flex;
@@ -111,6 +113,7 @@ export default {
         letter-spacing: -0.05rem;
         font-weight: 900;
         font-size: 37px;
+        transform: scale(1, 1.4);
       }
 
       form {

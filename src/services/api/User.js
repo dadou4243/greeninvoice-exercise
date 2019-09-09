@@ -14,9 +14,6 @@ export default {
     });
   },
   login({ email, password }) {
-    return axios.post('account/login', { email, password }).then(response => {
-      console.log('response:', response);
-      return response;
-    });
+    return axios.post('account/login', { email, password });
   }
 };
