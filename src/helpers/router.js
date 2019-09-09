@@ -9,8 +9,9 @@ import store from '../store'; // your vuex store
 Vue.use(Router);
 
 const ifNotAuthenticated = (to, from, next) => {
-  console.log('store.state.loggedIn:', store.state.loggedIn);
-  if (!store.state.loggedIn) {
+  // console.log('store.state.loggedIn:', store.state.loggedIn);
+  // if (!store.state.loggedIn) {
+  if (!localStorage.getItem('jwt_token')) {
     next();
     return;
   }
@@ -18,9 +19,10 @@ const ifNotAuthenticated = (to, from, next) => {
 };
 
 const ifAuthenticated = (to, from, next) => {
-  console.log('store.state.loggedIn:', store.state.loggedIn);
+  // console.log('store.state.loggedIn:', store.state.loggedIn);
 
-  if (store.state.loggedIn) {
+  // if (store.state.loggedIn) {
+  if (localStorage.getItem('jwt_token')) {
     next();
     return;
   }

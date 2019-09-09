@@ -9,7 +9,12 @@
 // import Login from "./components/Login.vue";
 
 export default {
-  name: "app"
+  name: "app",
+  created() {
+    this.$store.dispatch("getUserInfo").then(response => {
+      console.log("response", response);
+    });
+  }
 };
 </script>
 

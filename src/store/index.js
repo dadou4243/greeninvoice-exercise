@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import UserApi from '../services/api/UserService';
+import UserApi from '../services/UserService';
 
 import AuthenticationService from '../services/AuthenticationService';
 
@@ -43,7 +43,12 @@ export default new Vuex.Store({
       AuthenticationService.logout();
       commit('logout');
     },
-    getUserInfo() {},
+    getUserInfo() {
+      console.log('getBusinesses');
+      UserApi.getUserInfo().then(response => {
+        console.log('response:', response);
+      });
+    },
     getBusinesses() {
       console.log('getBusinesses');
       UserApi.getBusinesses().then(response => {
