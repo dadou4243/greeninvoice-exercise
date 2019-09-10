@@ -3,13 +3,7 @@
     <div class="left-part"></div>
 
     <div class="right-part">
-      <div class="logo">
-        <img src="../assets/svg/green_leaf.svg" class="leaf-logo" alt="leaf logo" />
-
-        <span class="bold">חשבונית</span>
-
-        <span class="light">ירוקה</span>
-      </div>
+      <green-logo></green-logo>
 
       <div class="form-container">
         <h1>התחברות לחשבונית ירוקה</h1>
@@ -18,7 +12,13 @@
             <div>
               <label class="label-container">Email</label>
             </div>
-            <input type="text" placeholder="מייל" v-model.lazy="email" />
+            <input
+              type="text"
+              placeholder="מייל"
+              v-model="email"
+              :class="{ invalid: !isEmailValid }"
+            />
+            <span v-show="!isEmailValid" class="error-message">Email not valid</span>
           </div>
 
           <div class="field-container">
@@ -28,6 +28,8 @@
             <input type="password" placeholder="סיסמה" v-model="password" />
           </div>
         </form>
+
+        <div class="errors">{{errors}}</div>
 
         <div class="buttons">
           <button @click="login" class="login">כניסה</button>
@@ -39,31 +41,45 @@
 </template>
 
 <script>
+import GreenLogo from "./GreenLogo";
+
 export default {
   name: "Login",
+  components: { GreenLogo },
   data() {
     return {
       email: "",
-      password: ""
+      password: "",
+      errors: ""
     };
   },
   methods: {
     login() {
+      if (!this.isEmailValid) {
+        this.errors = "error";
+        return;
+      }
+
       const loginInfo = {
         email: this.email,
         password: this.password
       };
-      console.log("loginInfo:", loginInfo);
+
       this.$store.dispatch("login", loginInfo).then(res => {
-        console.log("res:", res);
         this.$router.push("/welcome");
       });
+    }
+  },
+  computed: {
+    isEmailValid() {
+      return this.email.match(
+        /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      );
     }
   }
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 .login-container {
   display: flex;
@@ -117,14 +133,29 @@ export default {
       }
 
       form {
+        .field-container {
+          margin: 0 0 20px 0;
+        }
+
         input {
           width: 100%;
           border: 0;
-          border-bottom: 1px solid black;
+          border-bottom: 2px solid black;
           background: 0;
           font-size: 16px;
           padding: 5px 10px;
-          margin: 0 0 20px 0;
+
+          &.invalid {
+            border-bottom: 2px solid red;
+
+            &:focus {
+              border-bottom: 2px solid green;
+            }
+          }
+        }
+
+        .error-message {
+          color: red;
         }
       }
 
