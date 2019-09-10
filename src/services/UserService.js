@@ -1,18 +1,26 @@
 import axios from 'axios';
 
-const headers = {
-  'Content-Type': 'application/json',
-  Authorization: `Bearer ${localStorage.getItem('jwt_token')}`
-};
+// const headers = {
+//   'Content-Type': 'application/json',
+//   Authorization: `Bearer ${localStorage.getItem('jwt_token')}`
+// };
 
-console.log('headers:', headers);
+// console.log('headers:', headers);
+
+const apiCode = {
+  id: 'f9bfc168-81bb-4c5a-95fa-babeced13a59',
+  secret: 'pqyl75jTt6E_gyS6ILKM9w'
+};
 
 export default {
   // Get a specific note information
   getBusinesses() {
     return axios
-      .get('https://api.greeninvoice.co.il/api/v1/expenses/statuses', {
-        headers
+      .get('expenses/statuses', {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${localStorage.getItem('jwt_token')}`
+        }
       })
       .then(response => {
         return response;
@@ -20,8 +28,11 @@ export default {
   },
   getUserInfo() {
     return axios
-      .get('https://api.greeninvoice.co.il/api/v1/users/me', {
-        headers
+      .get('users/me', {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${localStorage.getItem('jwt_token')}`
+        }
       })
       .then(response => {
         return response;
@@ -32,5 +43,8 @@ export default {
   },
   logout() {
     return axios.post('account/logout');
+  },
+  getJwtToken() {
+    return axios.post('account/token', apiCode);
   }
 };

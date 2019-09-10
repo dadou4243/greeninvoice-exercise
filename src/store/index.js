@@ -19,57 +19,80 @@ export default new Vuex.Store({
         // Check if the editable field of the note has been changed
         UserApi.login(loginInfo)
           .then(response => {
-            // console.log('response:', response);
-            // console.log('response:', response.headers);
             AuthenticationService.setJwtToken(
               response.headers['x-authorization-bearer']
             );
 
-            console.log('response.data:', response.data);
             commit('login', response.data);
 
             resolve(response);
           })
           .catch(err => {
-            console.log('err:', err.response);
             // commit('auth_error');
-            // localStorage.removeItem('token');
+            localStorage.removeItem('jwt_token');
             reject(err);
           });
       });
     },
     logout({ commit }) {
-      // return new Promise((resolve, reject) => {resolve(AuthenticationService.logout()});
       AuthenticationService.logout();
       commit('logout');
     },
-    getUserInfo() {
-      console.log('getBusinesses');
-      UserApi.getUserInfo().then(response => {
-        console.log('response:', response);
+    getUserInfo({ commit }) {
+      return new Promise((resolve, reject) => {
+        UserApi.getUserInfo()
+          .then(response => {
+            console.log('response:', response);
+            commit('setUserInfo', response.data);
+            resolve(response.data);
+          })
+          .catch(error => {
+            console.log('error:', error.response);
+            commit('logout');
+            localStorage.removeItem('jwt_token');
+            reject(error.response);
+          });
       });
     },
-    getBusinesses() {
-      console.log('getBusinesses');
-      UserApi.getBusinesses().then(response => {
-        console.log('response:', response);
+    getBusinesses({ commit }) {
+      UserApi.getBusinesses()
+        .then(response => {
+          console.log('response:', response);
+        })
+        .catch(error => {
+          console.log('error:', error);
+          commit('logout');
+        });
+    },
+    getJwtToken({ commit }) {
+      UserApi.getJwtToken().then(response => {
+        console.log('response', response);
       });
+      // .catch(error => {
+      //   console.log('error:', error);
+      //   commit('logout');
+      // });
     }
   },
   mutations: {
     login(state, user) {
       console.log('user:', user);
       state.loggedIn = true;
-      state.user = user;
+      // state.user = user;
     },
     logout(state) {
       state.loggedIn = false;
       state.user = {};
     },
+    setUserInfo(state, userInfo) {
+      state.user = userInfo;
+    },
     setBusinesses(state, businesses) {
       state.businesses = businesses;
     }
   },
-
-  getters: {}
+  getters: {
+    getUserInfo: state => state.user,
+    getIsLoggedIn: state => state.loggedIn
+  }
 });

@@ -20,11 +20,6 @@ export default {
   methods: {
     logout() {
       console.log("logout");
-      // const loginInfo = {
-      //   email: this.email,
-      //   password: this.password
-      // };
-      // console.log("loginInfo:", loginInfo);
       this.$store.dispatch("logout");
       this.$router.push("/login");
     }
@@ -35,8 +30,17 @@ export default {
     }
   },
   mounted() {
-    this.$store.dispatch("getUserInfo");
-    this.$store.dispatch("getBusinesses");
+    this.$store
+      .dispatch("getUserInfo")
+      .then(response => {
+        console.log("response:", response);
+      })
+      .catch(error => {
+        console.log(error);
+        this.$router.push("/login");
+      });
+    // this.$store.dispatch("getBusinesses");
+    // this.$store.dispatch("getJwtToken");
   }
 };
 </script>

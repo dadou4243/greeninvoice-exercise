@@ -16,9 +16,12 @@
               type="text"
               placeholder="מייל"
               v-model="email"
+              ref="emailInput"
               :class="{ invalid: !isEmailValid }"
+              @focus="isEmailFocus = true"
+              @blur="isEmailFocus = false"
             />
-            <span v-show="!isEmailValid" class="error-message">Email not valid</span>
+            <span v-show="!isEmailValid && !isEmailFocus" class="error-message">Email not valid</span>
           </div>
 
           <div class="field-container">
@@ -50,24 +53,32 @@ export default {
     return {
       email: "",
       password: "",
-      errors: ""
+      errors: "",
+      isEmailFocus: false
     };
   },
   methods: {
     login() {
-      if (!this.isEmailValid) {
-        this.errors = "error";
-        return;
-      }
+      // if (!this.isEmailValid) {
+      //   this.errors = "error";
+      //   return;
+      // }
 
       const loginInfo = {
         email: this.email,
         password: this.password
       };
 
-      this.$store.dispatch("login", loginInfo).then(res => {
-        this.$router.push("/welcome");
-      });
+      this.$store
+        .dispatch("login", loginInfo)
+        .then(res => {
+          console.log("res:", res);
+          this.$router.push("/welcome");
+        })
+        .catch(error => {
+          console.log("error", error.response.data.errorMessage);
+          this.errors = error.response.data.errorMessage;
+        });
     }
   },
   computed: {
@@ -76,6 +87,10 @@ export default {
         /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
       );
     }
+  },
+  mounted() {
+    console.log("this.$refs.emailInput:", this.$refs.emailInput.$el);
+    this.$refs.emailInput.focus();
   }
 };
 </script>
@@ -142,8 +157,9 @@ export default {
           border: 0;
           border-bottom: 2px solid black;
           background: 0;
-          font-size: 16px;
-          padding: 5px 10px;
+          font-size: 0.9rem;
+          line-height: 2.5rem;
+          // padding: 5px 10px;
 
           &.invalid {
             border-bottom: 2px solid red;
@@ -200,7 +216,7 @@ export default {
 
   .left-part {
     background: url(../assets/svg/green_login_page.svg);
-    height: 100%;
+    // height: 100%;
     background-repeat: no-repeat;
     background-color: #ffdcdc;
     background-position: right center;

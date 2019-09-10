@@ -11,9 +11,9 @@
 export default {
   name: "app",
   created() {
-    this.$store.dispatch("getUserInfo").then(response => {
-      console.log("response", response);
-    });
+    // this.$store.dispatch("getUserInfo").then(response => {
+    //   console.log("response", response);
+    // });
   }
 };
 </script>

@@ -4,7 +4,7 @@ import Router from 'vue-router';
 import LoginPage from '../components/LoginPage.vue';
 import WelcomePage from '../components/WelcomePage.vue';
 
-import store from '../store'; // your vuex store
+// import store from '../store'; // your vuex store
 
 Vue.use(Router);
 
