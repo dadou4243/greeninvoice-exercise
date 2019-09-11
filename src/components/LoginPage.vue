@@ -101,12 +101,9 @@ export default {
       this.$store
         .dispatch("login", loginInfo)
         .then(res => {
-          console.log("res:", res);
           this.$router.push("/welcome");
         })
         .catch(error => {
-          // console.log("error:", error.response);
-          // console.log("error", error.response.data.errorMessage);
           if (error.response.data) {
             this.errors = error.response.data.errorMessage;
           }
@@ -191,10 +188,10 @@ export default {
 
             &.invalid {
               border-bottom: 1px solid $alert-color;
+            }
 
-              &:focus {
-                border-bottom: 1px solid $primary-color;
-              }
+            &:focus {
+              border-bottom: 1px solid $primary-color;
             }
           }
         }

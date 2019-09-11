@@ -41,6 +41,8 @@ export default {
   width: 100%;
   background-color: #ffffff;
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.25);
+  z-index: 10;
+  opacity: 0.95;
 
   nav {
     padding-right: 1.25rem;

@@ -10,10 +10,8 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     loggedIn: false,
-    isLoadingUserInfo: false,
-    user: {},
-    businesses: {},
-    jwt_token: ''
+    isLoginLoading: false,
+    user: {}
   },
   actions,
   getters,

@@ -17,8 +17,5 @@ export default {
   },
   setBusinesses(state, businesses) {
     state.businesses = businesses;
-  },
-  setLoading(state, value) {
-    state.isLoadingUserInfo = value;
   }
 };

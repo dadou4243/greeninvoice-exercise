@@ -2,8 +2,6 @@
   <main class="welcome-container">
     <div v-if="isLoginLoading">loading...</div>
     <h1 v-if="!isLoginLoading">שלום {{user.firstName}} {{user.lastName}}</h1>
-    <div></div>
-    <div></div>
   </main>
 </template>
 
@@ -27,18 +25,12 @@ export default {
     if (!this.user.id) {
       this.$store
         .dispatch("getUserInfo")
-        .then(response => {
-          // console.log("response:", response);
-          this.loading = false;
-        })
+        .then(response => {})
         .catch(error => {
-          // console.log(error);
           this.$router.push("/login");
           this.loading = false;
         });
     }
-    // this.$store.dispatch("getBusinesses");
-    // this.$store.dispatch("getJwtToken");
   }
 };
 </script>
