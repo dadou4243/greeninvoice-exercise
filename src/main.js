@@ -4,8 +4,11 @@ import App from './App.vue';
 import store from './store';
 import axios from 'axios';
 
-axios.defaults.baseURL = 'https://sandbox.d.greeninvoice.co.il/api/v1';
-// axios.defaults.baseURL = 'https://test.co.il';
+axios.defaults.baseURL = process.env.VUE_APP_API_BASE_URL;
+console.log(
+  'process.env.VUE_APP_API_BASE_URL',
+  process.env.VUE_APP_API_BASE_URL
+);
 
 Vue.prototype.$http = axios;
 
