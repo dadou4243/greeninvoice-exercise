@@ -1,28 +1,26 @@
 <template>
-  <div class="login-container">
-    <h1>Welcome</h1>
-    <div>{{user.firstName}}</div>
-    <div>{{user.lastName}}</div>
-    <button @click="logout">logout</button>
-  </div>
+  <main class="welcome-container">
+    <h1>שלום {{user.firstName}} {{user.lastName}}</h1>
+    <div></div>
+    <div></div>
+    <!-- <button @click="logout">logout</button> -->
+  </main>
 </template>
 
 <script>
 export default {
-  name: "Login",
+  name: "welcome-page",
   data() {
     return {
       email: "",
       password: ""
     };
   },
-
   methods: {
-    logout() {
-      console.log("logout");
-      this.$store.dispatch("logout");
-      this.$router.push("/login");
-    }
+    // logout() {
+    //   this.$store.dispatch("logout");
+    //   this.$router.push("/login");
+    // }
   },
   computed: {
     user() {
@@ -47,6 +45,6 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-.login-container {
+.welcome-container {
 }
 </style>

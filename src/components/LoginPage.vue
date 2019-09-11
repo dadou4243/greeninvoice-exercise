@@ -3,7 +3,9 @@
     <div class="left-part"></div>
 
     <div class="right-part">
-      <green-logo></green-logo>
+      <div class="logo-container">
+        <green-logo></green-logo>
+      </div>
 
       <div class="form-container">
         <h1>התחברות לחשבונית ירוקה</h1>
@@ -47,7 +49,7 @@
 import GreenLogo from "./GreenLogo";
 
 export default {
-  name: "Login",
+  name: "login-page",
   components: { GreenLogo },
   data() {
     return {
@@ -101,32 +103,15 @@ export default {
   flex-direction: row-reverse;
   height: 100%;
   width: 100%;
+  background-color: #ffffff;
 
   .right-part {
     flex: 1;
     display: flex;
     flex-direction: column;
 
-    .logo {
-      color: #18c746;
-      font-size: 36px;
-      display: flex;
-      flex-direction: row;
+    .logo-container {
       padding: 2rem 4rem;
-
-      .light {
-        font-weight: 400;
-      }
-
-      .bold {
-        font-weight: 900;
-        margin-left: 5px;
-      }
-
-      .leaf-logo {
-        width: 23px;
-        margin-left: 7px;
-      }
     }
 
     .form-container {

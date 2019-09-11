@@ -3,6 +3,7 @@ import Router from 'vue-router';
 
 import LoginPage from '../components/LoginPage.vue';
 import WelcomePage from '../components/WelcomePage.vue';
+import UserInfo from '../components/UserInfo.vue';
 
 // import store from '../store'; // your vuex store
 
@@ -37,16 +38,17 @@ const routes = [
   },
   {
     path: '/login',
-    // name: 'Login',
+    // name: 'login',
     component: LoginPage,
     beforeEnter: ifNotAuthenticated
   },
   { path: '/welcome', component: WelcomePage, beforeEnter: ifAuthenticated },
+  { path: '/user', component: UserInfo, beforeEnter: ifAuthenticated },
   // otherwise redirect to home
   { path: '*', redirect: '/' }
 ];
 
-export const router = new Router({
+export default new Router({
   mode: 'history',
   routes
 });

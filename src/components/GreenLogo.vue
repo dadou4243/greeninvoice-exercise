@@ -10,7 +10,7 @@
 
 <script>
 export default {
-  name: "Logo"
+  name: "green-logo"
 };
 </script>
 
@@ -20,7 +20,7 @@ export default {
   font-size: 36px;
   display: flex;
   flex-direction: row;
-  padding: 2rem 4rem;
+  // padding: 2rem 4rem;
 
   .light {
     font-weight: 400;

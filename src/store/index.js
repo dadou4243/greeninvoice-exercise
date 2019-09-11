@@ -9,7 +9,8 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     loggedIn: false,
-    user: {}
+    user: {},
+    businesses: {}
   },
   actions: {
     // Login
@@ -63,16 +64,16 @@ export default new Vuex.Store({
           console.log('error:', error);
           commit('logout');
         });
-    },
-    getJwtToken({ commit }) {
-      UserApi.getJwtToken().then(response => {
-        console.log('response', response);
-      });
-      // .catch(error => {
-      //   console.log('error:', error);
-      //   commit('logout');
-      // });
     }
+    // getJwtToken({ commit }) {
+    //   UserApi.getJwtToken().then(response => {
+    //     console.log('response', response);
+    //   });
+    //   // .catch(error => {
+    //   //   console.log('error:', error);
+    //   //   commit('logout');
+    //   // });
+    // }
   },
   mutations: {
     login(state, user) {
@@ -93,6 +94,7 @@ export default new Vuex.Store({
   },
   getters: {
     getUserInfo: state => state.user,
-    getIsLoggedIn: state => state.loggedIn
+    getIsLoggedIn: state => state.loggedIn,
+    getBusinessInfo: state => state.businesses
   }
 });

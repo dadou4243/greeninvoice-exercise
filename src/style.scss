@@ -29,10 +29,29 @@ html {
 
 body {
   font-family: almoni-neue-dl, arial, sans-serif;
+  background: #f6f7f8;
 }
 
 button:focus,
 a.button:focus {
+  outline: none;
+}
+
+button {
+  font-size: 1rem;
+  font-weight: 700;
+  border-radius: 5rem;
+  background: transparent;
+  border: 1px solid black;
+  margin: 0 0.5rem;
+  cursor: pointer;
+  display: inline-block;
+  padding: 0 2rem;
+  line-height: 2.5rem;
+  text-decoration: none;
+  white-space: nowrap;
+  text-align: center;
+  transition: width 0.25s ease-in-out;
   outline: none;
 }
 
@@ -41,7 +60,6 @@ input[type='password'] {
   outline: none;
 }
 
-/* Change the white to any color ;) */
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
@@ -53,4 +71,12 @@ input:-internal-autofill-selected {
   background-color: white !important;
   background-image: none !important;
   color: rgb(0, 0, 0) !important;
+}
+
+main {
+  max-width: 1140px;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 70px;
 }
