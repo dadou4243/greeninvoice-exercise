@@ -1,11 +1,7 @@
+import StorageService from './StorageService';
+
 export default {
-  setJwtToken: token => {
-    console.log('token:', token);
-    localStorage.setItem('jwt_token', token);
-  },
-  logout: () => {
-    console.log('logout');
-    // remove user from local storage to log user out
-    localStorage.removeItem('jwt_token');
-  }
+  setJwtToken: token => StorageService.setItem('jwt_token', token),
+  getJwtToken: token => StorageService.getItem('jwt_token', token),
+  removeJwtToken: () => StorageService.removeItem('jwt_token')
 };

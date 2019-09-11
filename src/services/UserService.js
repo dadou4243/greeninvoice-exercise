@@ -1,12 +1,5 @@
 import axios from 'axios';
 
-// const headers = {
-//   'Content-Type': 'application/json',
-//   Authorization: `Bearer ${localStorage.getItem('jwt_token')}`
-// };
-
-// console.log('headers:', headers);
-
 const apiCode = {
   id: 'f9bfc168-81bb-4c5a-95fa-babeced13a59',
   secret: 'pqyl75jTt6E_gyS6ILKM9w'
@@ -39,6 +32,7 @@ export default {
       });
   },
   login({ email, password }) {
+    console.log('login api');
     return axios.post('account/login', { email, password });
   },
   logout() {

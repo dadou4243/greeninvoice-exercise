@@ -1,9 +1,9 @@
 <template>
   <main class="welcome-container">
-    <h1>שלום {{user.firstName}} {{user.lastName}}</h1>
+    <div v-if="isLoginLoading">loading...</div>
+    <h1 v-if="!isLoginLoading">שלום {{user.firstName}} {{user.lastName}}</h1>
     <div></div>
     <div></div>
-    <!-- <button @click="logout">logout</button> -->
   </main>
 </template>
 
@@ -12,31 +12,31 @@ export default {
   name: "welcome-page",
   data() {
     return {
-      email: "",
-      password: ""
+      loading: true
     };
-  },
-  methods: {
-    // logout() {
-    //   this.$store.dispatch("logout");
-    //   this.$router.push("/login");
-    // }
   },
   computed: {
     user() {
       return this.$store.state.user;
+    },
+    isLoginLoading() {
+      return this.$store.getters.getIsLoginLoading;
     }
   },
   mounted() {
-    this.$store
-      .dispatch("getUserInfo")
-      .then(response => {
-        console.log("response:", response);
-      })
-      .catch(error => {
-        console.log(error);
-        this.$router.push("/login");
-      });
+    if (!this.user.id) {
+      this.$store
+        .dispatch("getUserInfo")
+        .then(response => {
+          // console.log("response:", response);
+          this.loading = false;
+        })
+        .catch(error => {
+          // console.log(error);
+          this.$router.push("/login");
+          this.loading = false;
+        });
+    }
     // this.$store.dispatch("getBusinesses");
     // this.$store.dispatch("getJwtToken");
   }

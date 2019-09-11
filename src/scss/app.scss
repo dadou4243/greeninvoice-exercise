@@ -1,21 +1,23 @@
 @font-face {
   font-family: 'almoni-neue-dl';
-  src: url('./assets/fonts/almoni-neue-aaa-400.woff');
+  src: url('../assets/fonts/almoni-neue-aaa-400.woff');
   font-weight: 400;
   font-style: normal;
 }
 @font-face {
   font-family: 'almoni-neue-dl';
-  src: url('./assets/fonts/almoni-neue-aaa-700.woff');
+  src: url('../assets/fonts/almoni-neue-aaa-700.woff');
   font-weight: 700;
   font-style: normal;
 }
 @font-face {
   font-family: 'almoni-neue-dl';
-  src: url('./assets/fonts/almoni-neue-aaa-900.woff');
+  src: url('../assets/fonts/almoni-neue-aaa-900.woff');
   font-weight: 900;
   font-style: normal;
 }
+
+@import '../scss/_variables.scss';
 
 * {
   box-sizing: border-box;
@@ -25,11 +27,21 @@
 
 html {
   direction: rtl;
+  font-size: 17px;
 }
 
 body {
   font-family: almoni-neue-dl, arial, sans-serif;
   background: #f6f7f8;
+}
+
+ul {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  transition: all 0.3s ease 0s;
 }
 
 button:focus,
@@ -43,7 +55,6 @@ button {
   border-radius: 5rem;
   background: transparent;
   border: 1px solid black;
-  margin: 0 0.5rem;
   cursor: pointer;
   display: inline-block;
   padding: 0 2rem;
@@ -78,5 +89,20 @@ main {
   width: 100%;
   margin-left: auto;
   margin-right: auto;
-  padding-top: 70px;
+  padding-top: $header-height + 10;
+}
+
+::-webkit-input-placeholder {
+  /* Edge */
+  color: #a2adb5;
+  font-size: 0.8rem;
+}
+:-ms-input-placeholder {
+  /* Internet Explorer 10-11 */
+  color: #a2adb5;
+  font-size: 0.8rem;
+}
+::placeholder {
+  color: #a2adb5;
+  font-size: 0.8rem;
 }

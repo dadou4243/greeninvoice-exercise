@@ -15,8 +15,10 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@import "../scss/_variables.scss";
+
 .logo {
-  color: #18c746;
+  color: $primary-color;
   font-size: 36px;
   display: flex;
   flex-direction: row;
