@@ -100,8 +100,7 @@ export default {
   },
   methods: {
     login() {
-      if (!this.isEmailValid) {
-        this.errors = "error";
+      if (!this.isEmailValid || !this.isPasswordValid) {
         return;
       }
 
