@@ -55,6 +55,10 @@
             </div>
           </form>
 
+          <div>
+            <a class="forget-link">שחכת סיסמה?</a>
+          </div>
+
           <div class="errors">{{errors}}</div>
 
           <div class="buttons">
@@ -278,17 +282,53 @@ export default {
           }
         }
       }
+
+      a.forget-link {
+        font-size: 0.8rem;
+        text-decoration: underline;
+        cursor: pointer;
+        margin: 1rem 0;
+        display: inline-block;
+      }
+
+      .errors {
+        color: $alert-color;
+      }
     }
   }
 
   .login-image {
     background: url(../assets/svg/green_login_page.svg);
-    // height: 100%;
     background-repeat: no-repeat;
     background-color: #ffdcdc;
     background-position: right center;
     background-size: 80%;
     flex: 1;
+  }
+}
+
+@media screen and (max-width: 980px) {
+  .login-image {
+    display: none;
+  }
+
+  .form-container {
+    margin: 0 auto !important;
+  }
+}
+@media screen and (max-width: 468px) {
+  h1 {
+    color: red;
+  }
+  .form-container {
+    width: 280px !important;
+  }
+  .buttons {
+    flex-direction: column;
+
+    button {
+      margin: 0.5rem 0;
+    }
   }
 }
 </style>

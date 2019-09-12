@@ -111,4 +111,13 @@ export default {
     }
   }
 }
+
+@media screen and (max-width: 980px) {
+  section {
+    flex-direction: column;
+  }
+  .business-info {
+    margin-top: 2rem;
+  }
+}
 </style>

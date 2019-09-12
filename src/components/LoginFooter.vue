@@ -35,4 +35,10 @@ export default {
     }
   }
 }
+
+@media screen and (max-width: 468px) {
+  .bottom-line {
+    flex-direction: column;
+  }
+}
 </style>
