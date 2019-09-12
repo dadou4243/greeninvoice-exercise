@@ -1,7 +1,6 @@
 <template>
   <main class="welcome-container">
-    <div v-if="isLoginLoading">loading...</div>
-    <h1 v-if="!isLoginLoading">שלום {{user.firstName}} {{user.lastName}}</h1>
+    <h1 v-if="user.id">שלום {{user.firstName}} {{user.lastName}}</h1>
   </main>
 </template>
 
@@ -22,10 +21,12 @@ export default {
     if (!this.user.id) {
       this.$store
         .dispatch("getUserInfo")
-        .then(response => {})
+        .then(() => {})
         .catch(error => {
-          this.$router.push("/login");
-          this.loading = false;
+          if (error.status === "401") {
+            this.$router.push("/login");
+            this.loading = false;
+          }
         });
     }
   }

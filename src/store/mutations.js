@@ -1,6 +1,5 @@
 export default {
   successLogin(state, user) {
-    console.log('user:', user);
     state.loggedIn = true;
     state.isLoginLoading = false;
     state.user = user;
