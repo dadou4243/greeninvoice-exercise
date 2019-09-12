@@ -58,7 +58,13 @@
           <div class="errors">{{errors}}</div>
 
           <div class="buttons">
-            <button @click="login" class="login">כניסה</button>
+            <div class="login-button-container">
+              <button @click="login" class="login">
+                <span>כניסה</span>
+                <loading-spinner v-show="isLoginLoading" class="spinner"></loading-spinner>
+              </button>
+            </div>
+
             <button class="google">כניסה עם גוגל</button>
           </div>
         </div>
@@ -72,10 +78,12 @@
 <script>
 import GreenLogo from "./GreenLogo";
 import LoginFooter from "./LoginFooter";
+import LoadingSpinner from "./LoadingSpinner";
+import * as utils from "../utils";
 
 export default {
   name: "login-page",
-  components: { GreenLogo, LoginFooter },
+  components: { GreenLogo, LoginFooter, LoadingSpinner },
   data() {
     return {
       email: "",
@@ -112,12 +120,13 @@ export default {
   },
   computed: {
     isEmailValid() {
-      return this.email.match(
-        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-      );
+      return utils.isEmailValid(this.email);
     },
     isPasswordValid() {
       return this.password.length >= 8 && this.password.length <= 16;
+    },
+    isLoginLoading() {
+      return this.$store.getters.getIsLoginLoading;
     }
   },
   mounted() {
@@ -240,7 +249,11 @@ export default {
 
           &.login {
             flex: 1;
+            width: 100%;
             margin-left: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
           }
 
           &.google {
@@ -251,6 +264,17 @@ export default {
             background-size: 20px;
             padding: 0 1.75rem 0 2.75rem;
             margin-right: 0.5rem;
+          }
+        }
+
+        .login-button-container {
+          position: relative;
+          flex: 1;
+
+          .spinner {
+            position: absolute;
+            right: 10px;
+            top: -3px;
           }
         }
       }

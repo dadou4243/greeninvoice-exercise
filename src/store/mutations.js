@@ -5,6 +5,9 @@ export default {
     state.isLoginLoading = false;
     state.user = user;
   },
+  setIsLoginLoading(state, value) {
+    state.isLoginLoading = value;
+  },
   failedLogin(state) {
     state.isLoginLoading = false;
   },

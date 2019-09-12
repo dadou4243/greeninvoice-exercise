@@ -4,7 +4,7 @@ import UserApi from '../services/UserService';
 export default {
   login({ commit }, loginInfo) {
     return new Promise((resolve, reject) => {
-      commit('setLoading', true);
+      commit('setIsLoginLoading', true);
 
       UserApi.login(loginInfo)
         .then(response => {
